@@ -2,8 +2,6 @@ from django.db import models
 from django.conf import settings
 
 
-
-
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Категория расходов',
                             blank=True, null=True)
@@ -26,7 +24,7 @@ class Transaction(models.Model):
         ordering = ['summ', '-time_create']
 
     def __str__(self):
-        return f"{self.summ} {self.time_create}"
+        return f"{self.summ} {self.user}"
 
 
 class Balance(models.Model):
@@ -37,4 +35,4 @@ class Balance(models.Model):
     transaction = models.ForeignKey(Transaction, related_name="balances", on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.summ)
+        return f"{self.summ} {self.user}"

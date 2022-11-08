@@ -17,4 +17,4 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Balance)
 class BalanceAdmin(admin.ModelAdmin):
-    list_display = ('summ',)
+    list_display = ('summ', "user")
