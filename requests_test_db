@@ -1,0 +1,10 @@
+SELECT b.title, COUNT(n.id)FROM notebooks_brand AS b
+JOIN notebooks_notebook AS n ON b.id = n.brand_id
+GROUP BY b.title;
+
+SELECT COUNT(id),
+    ROUND(5 - CAST(width AS int) % 5 + width) AS width_rouded,
+    ROUND(5 - CAST(depth AS int) % 5 + depth) AS depth_rouded,
+    ROUND(5 - CAST(height AS int) % 5 + height) AS height_rouded
+FROM notebooks_notebook
+GROUP BY width_rouded, depth_rouded, height_rouded;
