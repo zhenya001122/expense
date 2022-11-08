@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from payments.models import Category, Transaction
+from payments.models import Category, Transaction, Balance
 
 
 @admin.register(Transaction)
@@ -13,3 +13,8 @@ class TransactionAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
+
+@admin.register(Balance)
+class BalanceAdmin(admin.ModelAdmin):
+    list_display = ('summ',)
