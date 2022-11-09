@@ -28,11 +28,13 @@ class Transaction(models.Model):
 
 
 class Balance(models.Model):
-    summ = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Ваш баланс')
+    summ = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='Ваш баланс', default=0)
     user = models.OneToOneField(
         settings.AUTH_USER_MODEL, related_name="balances", on_delete=models.CASCADE
     )
-    transaction = models.ForeignKey(Transaction, related_name="balances", on_delete=models.CASCADE)
+    transaction = models.ForeignKey(Transaction, related_name="balances", on_delete=models.CASCADE,
+                                    blank=True, null=True
+                                    )
 
     def __str__(self):
         return f"{self.summ} {self.user}"
