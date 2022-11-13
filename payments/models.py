@@ -21,7 +21,7 @@ class Transaction(models.Model):
     category = models.ForeignKey(Category, related_name="transactions", on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['summ', '-time_create']
+        ordering = ['time_create']
 
     def __str__(self):
         return f"{self.summ} {self.user}"
