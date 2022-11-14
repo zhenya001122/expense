@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from payments.models import Transaction, Balance
+from payments.models import Transaction, Balance, Category
 
 
 class TransactionSerializer(serializers.ModelSerializer):
@@ -12,3 +12,9 @@ class BalanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Balance
         fields = ('summ',)
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ("name",)
