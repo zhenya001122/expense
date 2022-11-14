@@ -51,3 +51,7 @@ class BalanceView(APIView):
         balance = Balance.objects.get(user=user_id)
         serializer = BalanceSerializer(balance)
         return Response(serializer.data)
+
+
+class CategoryView(APIView):
+    pass
