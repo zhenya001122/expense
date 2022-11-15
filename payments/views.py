@@ -1,5 +1,5 @@
 from payments.models import Transaction, Category, Balance
-from payments.serializers import TransactionSerializer, BalanceSerializer
+from payments.serializers import TransactionSerializer, BalanceSerializer, CategorySerializer
 from rest_framework.views import APIView
 from django.http import HttpRequest
 from rest_framework.response import Response
@@ -28,7 +28,7 @@ class TransactionView(APIView):
     """
     def post(self, request: HttpRequest) -> Response:
         serializer = TransactionSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
             transaction = Transaction.objects.last()
             balance = Balance.objects.get(user=transaction.user.id)
@@ -54,4 +54,36 @@ class BalanceView(APIView):
 
 
 class CategoryView(APIView):
-    pass
+    def post(self, request):
+        """Добавляет категорию пользователю"""
+        serializer = CategorySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({'post': serializer.data})
+
+    def put(self, request, category_id):
+        """Изменяет существующую категорию пользователя"""
+        if not category_id:
+            return Response({"error": "Метод PUT не разрешен"})
+
+        try:
+            instance = Category.objects.get(id=category_id)
+        except:
+            return Response({"error": "Объект не существует"})
+
+        serializer = CategorySerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response({"post": serializer.data})
+
+    def delete(self, request, category_id):
+        """Удаляет категорию пользователя"""
+        if not category_id:
+            return Response({"error": "Метод DELETE не разрешен"})
+
+        category = Category.objects.get(id=category_id)
+        category.delete()
+
+        return Response({"post": "Удалена запись " + str(category_id)})

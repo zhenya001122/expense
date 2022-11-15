@@ -15,13 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include, re_path
-from payments.views import TransactionAPIView, BalanceView, TransactionView
+from payments.views import TransactionAPIView, BalanceView, TransactionView, CategoryView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/transactionlist/<int:user_id>', TransactionView.as_view()),
     path("api/balance/<int:user_id>", BalanceView.as_view()),
     path("api/transactionadd/", TransactionView.as_view()),
+    path("api/category/", CategoryView.as_view()),
+    path("api/category/<int:category_id>", CategoryView.as_view()),
     path('api/auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
 
