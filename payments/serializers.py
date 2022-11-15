@@ -18,12 +18,3 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ("name", "user")
-
-        def create(self, validated_data):
-            return Category.objects.create(**validated_data)
-
-        def update(self, instance, validated_data):
-            instance.name = validated_data.get("name", instance.name)
-            instance.user = validated_data.get("user", instance.user)
-            instance.save()
-            return instance
